@@ -99,6 +99,9 @@ try:
 
     # payment functionality
 
+    """
+    Annual payment functionality
+    """
     clickon_annual_payment = WebDriverWait(driver, 10).until(
         EC.presence_of_element_located(
             (By.XPATH,
@@ -106,9 +109,16 @@ try:
     )
     clickon_annual_payment.click()
 
-    
+    """
+    30-day payment functionality
+    """
+    clickon_30day_payment = WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located(
+            (By.XPATH,
+             '/html/body/main/div/div/div/div/div/div/form/div/div[1]/div/fieldset/div/div/div/div[2]/div/div/label/div'))
+    )
+    clickon_30day_payment.click()
     time.sleep(3)
-
 
 finally:
     driver.quit()
