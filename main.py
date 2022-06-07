@@ -29,7 +29,7 @@ try:
 
     time.sleep(3)
     input_country.send_keys('India')
-    # time.sleep(5)
+    time.sleep(5)
     input_country.send_keys(Keys.RETURN)
 
     """
@@ -56,10 +56,12 @@ try:
                          ignored_exceptions=[ElementNotVisibleException, ElementNotSelectableException])
     input_license = wait.until(EC.element_to_be_clickable(
         (By.XPATH, "/html/body/main/div/div/div/div/div/div/form/div/div[1]/div/div[3]/div/div/div[1]/input")))
+    # removing this sleep will hamper the program, hence don't remove time.sleep(3) below this line
+    time.sleep(3)
     input_license.click()
     input_license.send_keys('DSK21')
     input_license.send_keys(Keys.RETURN)
-    # time.sleep(3)
+    time.sleep(3)
 
     """
     If vehicle is powered by natural gas or bio-methane we click on the further checkboxes
@@ -78,24 +80,22 @@ try:
     time.sleep(5)
 
     # if natural gas:
-    # input_clickon_naturalgas = WebDriverWait(driver, 10).until(
-    #     EC.presence_of_element_located(
-    #         (By.ID,
-    #          'natural_gas_radio_array_option_1'))
-    # )
-    # input_clickon_naturalgas.click()
-    #
-    # time.sleep(5)
+    input_clickon_naturalgas = WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located(
+            (By.XPATH,
+             '/html/body/main/div/div/div/div/div/div/form/div/div[1]/div/div[4]/div/div[2]/div[1]/div[1]/div/label'))
+    )
+    input_clickon_naturalgas.click()
+    time.sleep(3)
 
     # else:
-    # input_clickon_biomethane = WebDriverWait(driver, 10).until(
-    #     EC.presence_of_element_located(
-    #         (By.ID,
-    #          'bio_methane_radio_array_option_1'))
-    # )
-    # input_clickon_biomethane.click()
-    #
-    # time.sleep(10)
+    input_clickon_biomethane = WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located(
+            (By.XPATH,
+             '/html/body/main/div/div/div/div/div/div/form/div/div[1]/div/div[4]/div/div[2]/div[1]/div[2]/div/label'))
+    )
+    input_clickon_biomethane.click()
+    time.sleep(10)
 
 
 finally:
