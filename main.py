@@ -95,7 +95,19 @@ try:
              '/html/body/main/div/div/div/div/div/div/form/div/div[1]/div/div[4]/div/div[2]/div[1]/div[2]/div/label'))
     )
     input_clickon_biomethane.click()
-    time.sleep(10)
+    time.sleep(2)
+
+    # payment functionality
+
+    clickon_annual_payment = WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located(
+            (By.XPATH,
+             '//*[@id="root"]/div/form/div/div[1]/div/fieldset/div/div/div/div[1]/div/div/label/div'))
+    )
+    clickon_annual_payment.click()
+
+    
+    time.sleep(3)
 
 
 finally:
