@@ -10,6 +10,7 @@ from selenium.webdriver.support import expected_conditions as EC
 import time
 
 import pandas as pd
+
 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
 driver.get("https://edalnice.cz/en/bulk-purchase/index.html#/multi_eshop/batch")
 driver.implicitly_wait(10)
@@ -26,8 +27,8 @@ try:
     )
     input_country.click()
 
-    # time.sleep(3)
-    input_country.send_keys('IN - Republic of India')
+    time.sleep(3)
+    input_country.send_keys('India')
     # time.sleep(5)
     input_country.send_keys(Keys.RETURN)
 
@@ -53,11 +54,12 @@ try:
     # )
     wait = WebDriverWait(driver, timeout=10, poll_frequency=1,
                          ignored_exceptions=[ElementNotVisibleException, ElementNotSelectableException])
-    input_license = wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/main/div/div/div/div/div/div/form/div/div[1]/div/div[3]/div/div/div[1]/input")))
+    input_license = wait.until(EC.element_to_be_clickable(
+        (By.XPATH, "/html/body/main/div/div/div/div/div/div/form/div/div[1]/div/div[3]/div/div/div[1]/input")))
     input_license.click()
     input_license.send_keys('DSK21')
     input_license.send_keys(Keys.RETURN)
-    time.sleep(3)
+    # time.sleep(3)
 
     """
     If vehicle is powered by natural gas or bio-methane we click on the further checkboxes
@@ -69,10 +71,11 @@ try:
 
     # if df['Powered by'] is 'Nan':
 
-
-    # input_clickon = wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/main/div/div/div/div/div/div/form/div/div[1]/div/div[4]")))
-    # input_clickon.click()
-    # time.sleep(5)
+    input_clickon = WebDriverWait(driver, 10,
+                                  ignored_exceptions=[ElementNotVisibleException, ElementNotSelectableException]).until(
+        EC.presence_of_element_located((By.ID, "0")))
+    input_clickon.click()
+    time.sleep(5)
 
     # if natural gas:
     # input_clickon_naturalgas = WebDriverWait(driver, 10).until(
