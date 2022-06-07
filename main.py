@@ -108,7 +108,7 @@ try:
              '//*[@id="root"]/div/form/div/div[1]/div/fieldset/div/div/div/div[1]/div/div/label/div'))
     )
     clickon_annual_payment.click()
-
+    time.sleep(1)
     """
     30-day payment functionality
     """
@@ -118,7 +118,19 @@ try:
              '/html/body/main/div/div/div/div/div/div/form/div/div[1]/div/fieldset/div/div/div/div[2]/div/div/label/div'))
     )
     clickon_30day_payment.click()
+    time.sleep(1)
+    """
+    10-days payment functionality
+    """
+    clickon_10day_payment = WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located(
+            (By.XPATH,
+             '/html/body/main/div/div/div/div/div/div/form/div/div[1]/div/fieldset/div/div/div/div[3]/div/div/label/div'))
+    )
+    clickon_10day_payment.click()
     time.sleep(3)
+
+
 
 finally:
     driver.quit()
