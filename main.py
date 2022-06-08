@@ -8,7 +8,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
-
+import config
 import pandas as pd
 
 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
@@ -22,7 +22,7 @@ try:
         'India': 'INDIA',
         'French Republic': 'FR',
         'United States': 'US',
-        'Czech Republic': 'CR',
+        'Czech Republic': 'CZ',
         'Russia': 'RU',
     }
 
@@ -311,6 +311,82 @@ try:
 
              f'''//*[@id="root"]/div/form/div/div[2]/div/div[{df.shape[0] + len(pd.unique(df['Type of Vignette']))}]/div/button'''
              ))
+    )
+    clickon_continue.click()
+
+    """
+    click on continue for payment-summary
+    """
+    clickon_continue = WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located(
+            (By.XPATH,
+             '//*[@id="multiEshop"]/div/div[2]/div/div[8]/div/button'))
+    )
+    clickon_continue.click()
+
+    """
+    Sending email
+    """
+
+
+
+
+    send_email = WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located(
+            (By.XPATH,
+             '//*[@id="email-input"]'))
+    )
+    send_email.send_keys(config.EMAIL)
+
+    send_email = WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located(
+            (By.XPATH,
+             '//*[@id="email-confirmation-input"]'))
+    )
+    send_email.send_keys(config.EMAIL)
+    time.sleep(5)
+
+# checkbox payment
+    clickon_continue = WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located(
+            (By.XPATH,
+             '//*[@id="_termsAgreement-true"]'))
+    )
+    clickon_continue.click()
+    time.sleep(5)
+
+    # clickon_continue = WebDriverWait(driver, 10).until(
+    #     EC.presence_of_element_located(
+    #         (By.XPATH,
+    #          '//*[@id="multiEshop"]/div[2]/div/div[9]/div/div'))
+    # )
+    # clickon_continue.click()
+
+    send_card = WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located(
+            (By.XPATH,
+             '//*[@id="cardnumber"]'))
+    )
+    send_card.send_keys(config.CARD_NUMBER)
+
+    send_expiry = WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located(
+            (By.XPATH,
+             '//*[@id="expiry"]'))
+    )
+    send_expiry.send_keys(config.CARD_VALIDITY)
+
+    send_cvv = WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located(
+            (By.XPATH,
+             '//*[@id="cvc"]'))
+    )
+    send_cvv.send_keys(config.CARD_CVV)
+
+    clickon_pay = WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located(
+            (By.XPATH,
+             '//*[@id="pay-submit"]'))
     )
     clickon_continue.click()
 
