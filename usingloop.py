@@ -193,6 +193,24 @@ try:
         input_date.send_keys(Keys.RETURN)
 
         """
+        Licence plate input
+        """
+
+        wait = WebDriverWait(driver, timeout=10, poll_frequency=1,
+                             ignored_exceptions=[ElementNotVisibleException, ElementNotSelectableException])
+        input_license = wait.until(EC.element_to_be_clickable(
+            (By.XPATH, '/html/body/main/div/div/div/div/div/div/form/div/div[1]/div[2]/div[3]/div/div/div[1]/input')))
+        # removing this sleep will hamper the program, hence don't remove time.sleep(3) below this line
+        # time.sleep(3)
+        # input_license.click()
+        input_license.send_keys('DSK21')
+        input_license.send_keys(Keys.RETURN)
+
+
+
+
+
+        """
         New batch functionality
         """
 
