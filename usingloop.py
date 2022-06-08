@@ -18,6 +18,8 @@ time.sleep(3)
 
 try:
 
+    df = pd.read_csv('sample.csv')
+
     """
         Reject cookies functionality
         """
@@ -40,7 +42,7 @@ try:
     input_country.click()
 
     # time.sleep(0.1)
-    input_country.send_keys('India')
+    input_country.send_keys(df['Country'][0])
     time.sleep(1.8)
     input_country.send_keys(Keys.RETURN)
 
@@ -54,7 +56,7 @@ try:
 
     # input_date.click()
 
-    input_date.send_keys('30/5/2022')
+    input_date.send_keys(df['Validity Begins'][0])
     input_date.send_keys(Keys.RETURN)
 
     """
@@ -71,7 +73,7 @@ try:
     # removing this sleep will hamper the program, hence don't remove time.sleep(3) below this line
     # time.sleep(3)
     # input_license.click()
-    input_license.send_keys('DSK21')
+    input_license.send_keys(df['License Plate'][0])
     input_license.send_keys(Keys.RETURN)
     # time.sleep(3)
 
@@ -83,71 +85,71 @@ try:
         `powered by` = 'natural gas' or 'biomethane' 
     """
 
-    # if df['Powered by'] is 'Nan':
-
-    input_clickon = WebDriverWait(driver, 10,
-                                  ignored_exceptions=[ElementNotVisibleException, ElementNotSelectableException]).until(
-        EC.presence_of_element_located((By.ID, "0")))
-    input_clickon.click()
-    # time.sleep(1)
-
-    # if natural gas:
-    input_clickon_naturalgas = WebDriverWait(driver, 10).until(
-        EC.presence_of_element_located(
-            (By.XPATH,
-             '/html/body/main/div/div/div/div/div/div/form/div/div[1]/div/div[4]/div/div[2]/div[1]/div[1]/div/label'))
-    )
-    input_clickon_naturalgas.click()
-    # time.sleep(1)
-
-    # else:
-    input_clickon_biomethane = WebDriverWait(driver, 10).until(
-        EC.presence_of_element_located(
-            (By.XPATH,
-             '/html/body/main/div/div/div/div/div/div/form/div/div[1]/div/div[4]/div/div[2]/div[1]/div[2]/div/label'))
-    )
-    input_clickon_biomethane.click()
-    time.sleep(2.5)
+    # input_clickon = WebDriverWait(driver, 10,
+    #                               ignored_exceptions=[ElementNotVisibleException, ElementNotSelectableException]).until(
+    #     EC.presence_of_element_located((By.ID, "0")))
+    # input_clickon.click()
+    # # time.sleep(1)
+    #
+    # # if natural gas:
+    # input_clickon_naturalgas = WebDriverWait(driver, 10).until(
+    #     EC.presence_of_element_located(
+    #         (By.XPATH,
+    #          '/html/body/main/div/div/div/div/div/div/form/div/div[1]/div/div[4]/div/div[2]/div[1]/div[1]/div/label'))
+    # )
+    # input_clickon_naturalgas.click()
+    # # time.sleep(1)
+    #
+    # # else:
+    # input_clickon_biomethane = WebDriverWait(driver, 10).until(
+    #     EC.presence_of_element_located(
+    #         (By.XPATH,
+    #          '/html/body/main/div/div/div/div/div/div/form/div/div[1]/div/div[4]/div/div[2]/div[1]/div[2]/div/label'))
+    # )
+    # input_clickon_biomethane.click()
+    # time.sleep(2.5)
 
     # payment functionality
 
     """
     Annual payment functionality
     """
-    clickon_annual_payment = WebDriverWait(driver, 10).until(
-        EC.presence_of_element_located(
-            (By.XPATH,
-             '//*[@id="root"]/div/form/div/div[1]/div/fieldset/div/div/div/div[1]/div/div/label/div'))
-    )
-    clickon_annual_payment.click()
-    time.sleep(1)
+    if df['Type of Vignette'][0] == 'Annual':
+        clickon_annual_payment = WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located(
+                (By.XPATH,
+                 '//*[@id="root"]/div/form/div/div[1]/div/fieldset/div/div/div/div[1]/div/div/label/div'))
+        )
+        clickon_annual_payment.click()
+        time.sleep(1)
 
     """ 
     30-day payment functionality
     """
-    clickon_30day_payment = WebDriverWait(driver, 10).until(
-        EC.presence_of_element_located(
-            (By.XPATH,
-             '/html/body/main/div/div/div/div/div/div/form/div/div[1]/div/fieldset/div/div/div/div[2]/div/div/label/div'))
-    )
-    clickon_30day_payment.click()
-    time.sleep(1)
+    if df['Type of Vignette'][0] == '30-day':
+        clickon_30day_payment = WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located(
+                (By.XPATH,
+                 '/html/body/main/div/div/div/div/div/div/form/div/div[1]/div/fieldset/div/div/div/div[2]/div/div/label/div'))
+        )
+        clickon_30day_payment.click()
+        time.sleep(1)
 
     """
     10-days payment functionality
     """
-    clickon_10day_payment = WebDriverWait(driver, 10).until(
-        EC.presence_of_element_located(
-            (By.XPATH,
-             '/html/body/main/div/div/div/div/div/div/form/div/div[1]/div/fieldset/div/div/div/div[3]/div/div/label/div'))
-    )
-    clickon_10day_payment.click()
-    time.sleep(1)
+    if df['Type of Vignette'][0] == '10-day':
+        clickon_10day_payment = WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located(
+                (By.XPATH,
+                 '/html/body/main/div/div/div/div/div/div/form/div/div[1]/div/fieldset/div/div/div/div[3]/div/div/label/div'))
+        )
+        clickon_10day_payment.click()
+        time.sleep(1)
 
     """
     New batch functionality
     """
-
     clickon_add_new_batch = WebDriverWait(driver, 10).until(
         EC.presence_of_element_located(
             (By.XPATH,
@@ -165,18 +167,18 @@ try:
     )
     clickon_hide_previous_batch.click()
 
-# ----------------------------------------------------------------------------------------------------------------------
+    # ----------------------------------------------------------------------------------------------------------------------
 
-    for i in range(2,4):
+    for i in range(2, df.shape[0] + 1):
         input_country = WebDriverWait(driver, 10).until(
             EC.presence_of_element_located(
-                (By.ID, f"react-select-{i+1}-input"))
+                (By.ID, f"react-select-{i + 1}-input"))
 
         )
         input_country.click()
 
         # time.sleep(0.1)
-        input_country.send_keys('French')
+        input_country.send_keys(df['Country'][i-1])
         time.sleep(3)
         input_country.send_keys(Keys.RETURN)
 
@@ -189,7 +191,7 @@ try:
                  f'/html/body/main/div/div/div/div/div/div/form/div/div[1]/div[{i}]/div[2]/div[2]/div[1]/div/input'))
         )
 
-        input_date.send_keys('30/5/2022')
+        input_date.send_keys(df['Validity Begins'][i-1])
         input_date.send_keys(Keys.RETURN)
 
         """
@@ -204,98 +206,101 @@ try:
         # removing this sleep will hamper the program, hence don't remove time.sleep(3) below this line
         # time.sleep(3)
         # input_license.click()
-        input_license.send_keys('DSK21')
+        input_license.send_keys(df['License Plate'][i-1])
         input_license.send_keys(Keys.RETURN)
 
         """
             fuel
             """
-        input_clickon = WebDriverWait(driver, 10,
-                                      ignored_exceptions=[ElementNotVisibleException,
-                                                          ElementNotSelectableException]).until(
-            EC.presence_of_element_located((By.ID, f"{i-1}")))
-        input_clickon.click()
-        time.sleep(1)
 
-        # if natural gas:
-        input_clickon_naturalgas = WebDriverWait(driver, 10).until(
-            EC.presence_of_element_located(
-                (By.XPATH,
-                 f'/html/body/main/div/div/div/div/div/div/form/div/div[1]/div[{i}]/div[4]/div/div[2]/div[1]/div[1]/div/label'
-            ))
-        )
-        input_clickon_naturalgas.click()
-        time.sleep(1)
+        if df['Powered by'][i - 1] == 'Natural Gas' or df['Powered by'][i - 1] == 'Biomethane':
+            input_clickon = WebDriverWait(driver, 10,
+                                          ignored_exceptions=[ElementNotVisibleException,
+                                                              ElementNotSelectableException]).until(
+                EC.presence_of_element_located((By.ID, f"{i - 1}")))
+            input_clickon.click()
+            time.sleep(1)
 
-        # else:
-        input_clickon_biomethane = WebDriverWait(driver, 10).until(
-            EC.presence_of_element_located(
-                (By.XPATH,
-                 f'/html/body/main/div/div/div/div/div/div/form/div/div[1]/div[{i}]/div[4]/div/div[2]/div[1]/div[2]/div/label'
-                 ))
-        )
-        input_clickon_biomethane.click()
-        time.sleep(1)
+            if df['Powered by'][i-1] == 'Natural Gas':
+                input_clickon_naturalgas = WebDriverWait(driver, 10).until(
+                    EC.presence_of_element_located(
+                        (By.XPATH,
+                         f'/html/body/main/div/div/div/div/div/div/form/div/div[1]/div[{i}]/div[4]/div/div[2]/div[1]/div[1]/div/label'
+                         ))
+                )
+                input_clickon_naturalgas.click()
+                time.sleep(1)
+
+            else:
+                input_clickon_biomethane = WebDriverWait(driver, 10).until(
+                    EC.presence_of_element_located(
+                        (By.XPATH,
+                         f'/html/body/main/div/div/div/div/div/div/form/div/div[1]/div[{i}]/div[4]/div/div[2]/div[1]/div[2]/div/label'
+                         ))
+                )
+                input_clickon_biomethane.click()
+                time.sleep(1)
 
         """
             Annual payment functionality
             """
-        clickon_annual_payment = WebDriverWait(driver, 10).until(
-            EC.presence_of_element_located(
-                (By.XPATH,
-                 f'//*[@id="root"]/div/form/div/div[1]/div[{i}]/fieldset/div/div/div/div[1]/div/div/label/div'
-                 ))
-        )
-        clickon_annual_payment.click()
-        time.sleep(1)
+
+        if df['Type of Vignette'][i-1] == 'Annual':
+            clickon_annual_payment = WebDriverWait(driver, 10).until(
+                EC.presence_of_element_located(
+                    (By.XPATH,
+                     f'//*[@id="root"]/div/form/div/div[1]/div[{i}]/fieldset/div/div/div/div[1]/div/div/label/div'
+                     ))
+            )
+            clickon_annual_payment.click()
+            time.sleep(1)
 
         """ 
         30-day payment functionality
         """
-        clickon_30day_payment = WebDriverWait(driver, 10).until(
-            EC.presence_of_element_located(
-                (By.XPATH,
-                 f'//*[@id="root"]/div/form/div/div[1]/div[{i}]/fieldset/div/div/div/div[2]/div/div/label/div'
-                 ))
-        )
-        clickon_30day_payment.click()
-        time.sleep(1)
+        if df['Type of Vignette'][i-1] == '30-day':
+            clickon_30day_payment = WebDriverWait(driver, 10).until(
+                EC.presence_of_element_located(
+                    (By.XPATH,
+                     f'//*[@id="root"]/div/form/div/div[1]/div[{i}]/fieldset/div/div/div/div[2]/div/div/label/div'
+                     ))
+            )
+            clickon_30day_payment.click()
+            time.sleep(1)
 
         """
         10-days payment functionality
         """
-        clickon_10day_payment = WebDriverWait(driver, 10).until(
-            EC.presence_of_element_located(
-                (By.XPATH,
-                 f'/html/body/main/div/div/div/div/div/div/form/div/div[1]/div[{i}]/fieldset/div/div/div/div[3]/div/div/label/div'
-                 ))
-        )
-        clickon_10day_payment.click()
-        time.sleep(1)
+        if df['Type of Vignette'][i-1] == '10-day':
+            clickon_10day_payment = WebDriverWait(driver, 10).until(
+                EC.presence_of_element_located(
+                    (By.XPATH,
+                     f'/html/body/main/div/div/div/div/div/div/form/div/div[1]/div[{i}]/fieldset/div/div/div/div[3]/div/div/label/div'
+                     ))
+            )
+            clickon_10day_payment.click()
+            time.sleep(1)
 
+        if i != (df.shape[0]):
+            """
+            New batch functionality
+            """
 
+            clickon_add_new_batch = WebDriverWait(driver, 10).until(
+                EC.presence_of_element_located(
+                    (By.XPATH, f'/html/body/main/div/div/div/div/div/div/form/div/div[1]/div[{i}]/div[5]/button'))
+            )
+            clickon_add_new_batch.click()
 
-
-
-        """
-        New batch functionality
-        """
-
-        clickon_add_new_batch = WebDriverWait(driver, 10).until(
-            EC.presence_of_element_located(
-                (By.XPATH,f'/html/body/main/div/div/div/div/div/div/form/div/div[1]/div[{i}]/div[5]/button'))
-        )
-        clickon_add_new_batch.click()
-
-        """
-        Minimizing the previous batch
-        """
-        clickon_hide_previous_batch = WebDriverWait(driver, 10).until(
-            EC.presence_of_element_located(
-                (By.XPATH,
-                 f'/html/body/main/div/div/div/div/div/div/form/div/div[1]/div[{i}]/div[1]/div/button[2]/span/span[2]'))
-        )
-        clickon_hide_previous_batch.click()
+            """
+            Minimizing the previous batch
+            """
+            clickon_hide_previous_batch = WebDriverWait(driver, 10).until(
+                EC.presence_of_element_located(
+                    (By.XPATH,
+                     f'/html/body/main/div/div/div/div/div/div/form/div/div[1]/div[{i}]/div[1]/div/button[2]/span/span[2]'))
+            )
+            clickon_hide_previous_batch.click()
 
     time.sleep(30)
 
