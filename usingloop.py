@@ -117,7 +117,7 @@ try:
     clickon_annual_payment = WebDriverWait(driver, 10).until(
         EC.presence_of_element_located(
             (By.XPATH,
-             '/html/body/main/div/div/div/div/div/div/form/div/div[1]/div[1]/fieldset/div/div/div/div[1]/div/div/label/div'))
+             '//*[@id="root"]/div/form/div/div[1]/div/fieldset/div/div/div/div[1]/div/div/label/div'))
     )
     clickon_annual_payment.click()
     time.sleep(1)
@@ -199,12 +199,79 @@ try:
         wait = WebDriverWait(driver, timeout=10, poll_frequency=1,
                              ignored_exceptions=[ElementNotVisibleException, ElementNotSelectableException])
         input_license = wait.until(EC.element_to_be_clickable(
-            (By.XPATH, '/html/body/main/div/div/div/div/div/div/form/div/div[1]/div[2]/div[3]/div/div/div[1]/input')))
+            (By.XPATH,
+             f'/html/body/main/div/div/div/div/div/div/form/div/div[1]/div[{i}]/div[3]/div/div/div[1]/input')))
         # removing this sleep will hamper the program, hence don't remove time.sleep(3) below this line
         # time.sleep(3)
         # input_license.click()
         input_license.send_keys('DSK21')
         input_license.send_keys(Keys.RETURN)
+
+        """
+            fuel
+            """
+        input_clickon = WebDriverWait(driver, 10,
+                                      ignored_exceptions=[ElementNotVisibleException,
+                                                          ElementNotSelectableException]).until(
+            EC.presence_of_element_located((By.ID, f"{i-1}")))
+        input_clickon.click()
+        time.sleep(1)
+
+        # if natural gas:
+        input_clickon_naturalgas = WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located(
+                (By.XPATH,
+                 f'/html/body/main/div/div/div/div/div/div/form/div/div[1]/div[{i}]/div[4]/div/div[2]/div[1]/div[1]/div/label'
+            ))
+        )
+        input_clickon_naturalgas.click()
+        time.sleep(1)
+
+        # else:
+        input_clickon_biomethane = WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located(
+                (By.XPATH,
+                 f'/html/body/main/div/div/div/div/div/div/form/div/div[1]/div[{i}]/div[4]/div/div[2]/div[1]/div[2]/div/label'
+                 ))
+        )
+        input_clickon_biomethane.click()
+        time.sleep(1)
+
+        """
+            Annual payment functionality
+            """
+        clickon_annual_payment = WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located(
+                (By.XPATH,
+                 f'//*[@id="root"]/div/form/div/div[1]/div[{i}]/fieldset/div/div/div/div[1]/div/div/label/div'
+                 ))
+        )
+        clickon_annual_payment.click()
+        time.sleep(1)
+
+        """ 
+        30-day payment functionality
+        """
+        clickon_30day_payment = WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located(
+                (By.XPATH,
+                 f'//*[@id="root"]/div/form/div/div[1]/div[{i}]/fieldset/div/div/div/div[2]/div/div/label/div'
+                 ))
+        )
+        clickon_30day_payment.click()
+        time.sleep(1)
+
+        """
+        10-days payment functionality
+        """
+        clickon_10day_payment = WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located(
+                (By.XPATH,
+                 f'/html/body/main/div/div/div/div/div/div/form/div/div[1]/div[{i}]/fieldset/div/div/div/div[3]/div/div/label/div'
+                 ))
+        )
+        clickon_10day_payment.click()
+        time.sleep(1)
 
 
 
