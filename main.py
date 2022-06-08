@@ -18,18 +18,31 @@ time.sleep(3)
 
 try:
 
+    """
+    Reject cookies functionality
+    """
+    clickon_cookie_rejection = WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located(
+            (By.XPATH,
+             '/html/body/footer/div[2]/div/div/div[2]/div/button[2]'))
+    )
+    clickon_cookie_rejection.click()
+    # time.sleep(0.5)
     """Add a for loop before this to loop the rows from a csv
         
     """
+
     input_country = WebDriverWait(driver, 10).until(
         EC.presence_of_element_located(
             (By.ID, "react-select-2-input"))
+
+
     )
     input_country.click()
 
-    time.sleep(3)
+    # time.sleep(0.1)
     input_country.send_keys('India')
-    time.sleep(5)
+    time.sleep(1)
     input_country.send_keys(Keys.RETURN)
 
     """
@@ -57,11 +70,11 @@ try:
     input_license = wait.until(EC.element_to_be_clickable(
         (By.XPATH, "/html/body/main/div/div/div/div/div/div/form/div/div[1]/div/div[3]/div/div/div[1]/input")))
     # removing this sleep will hamper the program, hence don't remove time.sleep(3) below this line
-    time.sleep(3)
-    input_license.click()
+    # time.sleep(3)
+    # input_license.click()
     input_license.send_keys('DSK21')
     input_license.send_keys(Keys.RETURN)
-    time.sleep(3)
+    # time.sleep(3)
 
     """
     If vehicle is powered by natural gas or bio-methane we click on the further checkboxes
@@ -77,7 +90,7 @@ try:
                                   ignored_exceptions=[ElementNotVisibleException, ElementNotSelectableException]).until(
         EC.presence_of_element_located((By.ID, "0")))
     input_clickon.click()
-    time.sleep(5)
+    # time.sleep(1)
 
     # if natural gas:
     input_clickon_naturalgas = WebDriverWait(driver, 10).until(
@@ -86,7 +99,7 @@ try:
              '/html/body/main/div/div/div/div/div/div/form/div/div[1]/div/div[4]/div/div[2]/div[1]/div[1]/div/label'))
     )
     input_clickon_naturalgas.click()
-    time.sleep(3)
+    # time.sleep(1)
 
     # else:
     input_clickon_biomethane = WebDriverWait(driver, 10).until(
@@ -95,7 +108,7 @@ try:
              '/html/body/main/div/div/div/div/div/div/form/div/div[1]/div/div[4]/div/div[2]/div[1]/div[2]/div/label'))
     )
     input_clickon_biomethane.click()
-    time.sleep(2)
+    # time.sleep(1)
 
     # payment functionality
 
@@ -108,8 +121,9 @@ try:
              '//*[@id="root"]/div/form/div/div[1]/div/fieldset/div/div/div/div[1]/div/div/label/div'))
     )
     clickon_annual_payment.click()
-    time.sleep(1)
-    """
+    # time.sleep(1)
+
+    """ 
     30-day payment functionality
     """
     clickon_30day_payment = WebDriverWait(driver, 10).until(
@@ -118,7 +132,8 @@ try:
              '/html/body/main/div/div/div/div/div/div/form/div/div[1]/div/fieldset/div/div/div/div[2]/div/div/label/div'))
     )
     clickon_30day_payment.click()
-    time.sleep(1)
+    # time.sleep(1)
+
     """
     10-days payment functionality
     """
@@ -128,7 +143,7 @@ try:
              '/html/body/main/div/div/div/div/div/div/form/div/div[1]/div/fieldset/div/div/div/div[3]/div/div/label/div'))
     )
     clickon_10day_payment.click()
-    time.sleep(1)
+    # time.sleep(1)
 
     """
     New batch functionality
@@ -140,6 +155,7 @@ try:
              '/html/body/main/div/div/div/div/div/div/form/div/div[1]/div/div[5]/button'))
     )
     clickon_add_new_batch.click()
+
     time.sleep(3)
 
 finally:
