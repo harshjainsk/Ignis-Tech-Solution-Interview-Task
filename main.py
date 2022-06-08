@@ -302,7 +302,20 @@ try:
         )
         clickon_hide_previous_batch.click()
 
+    """
+    click on continue for payment
+    """
+    clickon_continue = WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located(
+            (By.XPATH,
+
+             f'''//*[@id="root"]/div/form/div/div[2]/div/div[{df.shape[0] + len(pd.unique(df['Type of Vignette']))}]/div/button'''
+             ))
+    )
+    clickon_continue.click()
+
     time.sleep(50)
+
 
 finally:
     driver.quit()
