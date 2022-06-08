@@ -292,15 +292,15 @@ try:
             )
             clickon_add_new_batch.click()
 
-            """
-            Minimizing the previous batch
-            """
-            clickon_hide_previous_batch = WebDriverWait(driver, 10).until(
-                EC.presence_of_element_located(
-                    (By.XPATH,
-                     f'/html/body/main/div/div/div/div/div/div/form/div/div[1]/div[{i}]/div[1]/div/button[2]/span/span[2]'))
-            )
-            clickon_hide_previous_batch.click()
+        """
+        Minimizing the previous batch
+        """
+        clickon_hide_previous_batch = WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located(
+                (By.XPATH,
+                 f'/html/body/main/div/div/div/div/div/div/form/div/div[1]/div[{i}]/div[1]/div/button[2]/span/span[2]'))
+        )
+        clickon_hide_previous_batch.click()
 
     time.sleep(50)
 
