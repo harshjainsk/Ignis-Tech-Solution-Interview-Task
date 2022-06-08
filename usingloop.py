@@ -18,6 +18,14 @@ time.sleep(3)
 
 try:
 
+    country = {
+        'India': 'INDIA',
+        'French Republic': 'FR',
+        'United States': 'US',
+        'Czech Republic': 'CR',
+        'Russia': 'RU',
+    }
+
     df = pd.read_csv('sample.csv')
 
     """
@@ -30,9 +38,7 @@ try:
     )
     clickon_cookie_rejection.click()
     # time.sleep(0.5)
-    """Add a for loop before this to loop the rows from a csv
 
-    """
 
     input_country = WebDriverWait(driver, 10).until(
         EC.presence_of_element_located(
@@ -42,8 +48,8 @@ try:
     input_country.click()
 
     # time.sleep(0.1)
-    input_country.send_keys(df['Country'][0])
-    time.sleep(1.8)
+    input_country.send_keys(country[df['Country'][0]])
+    time.sleep(1.5)
     input_country.send_keys(Keys.RETURN)
 
     """
@@ -70,9 +76,6 @@ try:
                          ignored_exceptions=[ElementNotVisibleException, ElementNotSelectableException])
     input_license = wait.until(EC.element_to_be_clickable(
         (By.XPATH, "/html/body/main/div/div/div/div/div/div/form/div/div[1]/div/div[3]/div/div/div[1]/input")))
-    # removing this sleep will hamper the program, hence don't remove time.sleep(3) below this line
-    # time.sleep(3)
-    # input_license.click()
     input_license.send_keys(df['License Plate'][0])
     input_license.send_keys(Keys.RETURN)
     # time.sleep(3)
@@ -85,29 +88,28 @@ try:
         `powered by` = 'natural gas' or 'biomethane' 
     """
 
-    # input_clickon = WebDriverWait(driver, 10,
-    #                               ignored_exceptions=[ElementNotVisibleException, ElementNotSelectableException]).until(
-    #     EC.presence_of_element_located((By.ID, "0")))
-    # input_clickon.click()
-    # # time.sleep(1)
-    #
-    # # if natural gas:
-    # input_clickon_naturalgas = WebDriverWait(driver, 10).until(
-    #     EC.presence_of_element_located(
-    #         (By.XPATH,
-    #          '/html/body/main/div/div/div/div/div/div/form/div/div[1]/div/div[4]/div/div[2]/div[1]/div[1]/div/label'))
-    # )
-    # input_clickon_naturalgas.click()
-    # # time.sleep(1)
-    #
-    # # else:
-    # input_clickon_biomethane = WebDriverWait(driver, 10).until(
-    #     EC.presence_of_element_located(
-    #         (By.XPATH,
-    #          '/html/body/main/div/div/div/div/div/div/form/div/div[1]/div/div[4]/div/div[2]/div[1]/div[2]/div/label'))
-    # )
-    # input_clickon_biomethane.click()
-    # time.sleep(2.5)
+    if df['Powered by'][0] == 'Natural Gas' or df['Powered by'][0] == 'Biomethane':
+        input_clickon = WebDriverWait(driver, 10,
+                                      ignored_exceptions=[ElementNotVisibleException, ElementNotSelectableException]).until(
+            EC.presence_of_element_located((By.ID, "0")))
+        input_clickon.click()
+        # time.sleep(1)
+
+        if df['Powered by'][0] == 'Natural Gas':
+            input_clickon_naturalgas = WebDriverWait(driver, 10).until(
+                EC.presence_of_element_located(
+                    (By.XPATH,
+                     '/html/body/main/div/div/div/div/div/div/form/div/div[1]/div/div[4]/div/div[2]/div[1]/div[1]/div/label'))
+            )
+            input_clickon_naturalgas.click()
+
+        else:
+            input_clickon_biomethane = WebDriverWait(driver, 10).until(
+                EC.presence_of_element_located(
+                    (By.XPATH,
+                     '/html/body/main/div/div/div/div/div/div/form/div/div[1]/div/div[4]/div/div[2]/div[1]/div[2]/div/label'))
+            )
+            input_clickon_biomethane.click()
 
     # payment functionality
 
@@ -178,7 +180,7 @@ try:
         input_country.click()
 
         # time.sleep(0.1)
-        input_country.send_keys(df['Country'][i-1])
+        input_country.send_keys(country[df['Country'][i-1]])
         time.sleep(3)
         input_country.send_keys(Keys.RETURN)
 
@@ -203,9 +205,7 @@ try:
         input_license = wait.until(EC.element_to_be_clickable(
             (By.XPATH,
              f'/html/body/main/div/div/div/div/div/div/form/div/div[1]/div[{i}]/div[3]/div/div/div[1]/input')))
-        # removing this sleep will hamper the program, hence don't remove time.sleep(3) below this line
-        # time.sleep(3)
-        # input_license.click()
+
         input_license.send_keys(df['License Plate'][i-1])
         input_license.send_keys(Keys.RETURN)
 
@@ -302,7 +302,7 @@ try:
             )
             clickon_hide_previous_batch.click()
 
-    time.sleep(30)
+    time.sleep(50)
 
 finally:
     driver.quit()
