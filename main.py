@@ -279,7 +279,7 @@ try:
                      ))
             )
             clickon_10day_payment.click()
-            time.sleep(1)
+            # time.sleep(1)
 
         if i != (df.shape[0]):
             """
@@ -320,7 +320,7 @@ try:
     clickon_continue = WebDriverWait(driver, 10).until(
         EC.presence_of_element_located(
             (By.XPATH,
-             '//*[@id="multiEshop"]/div/div[2]/div/div[8]/div/button'))
+             f'//*[@id="multiEshop"]/div/div[2]/div/div[{4 + len(df[["Powered by","Type of Vignette"]].drop_duplicates())}]/div/button'))
     )
     clickon_continue.click()
 
@@ -341,7 +341,7 @@ try:
              '//*[@id="email-confirmation-input"]'))
     )
     send_confirmation_email.send_keys(config.EMAIL)
-    time.sleep(5)
+    # time.sleep(5)
 
 # terms and condition for payment
     clickon_terms_condition = WebDriverWait(driver, 10).until(
@@ -387,12 +387,12 @@ try:
     send_expiry.send_keys(config.CARD_VALIDITY)
 
     # send cvv of card
-    # send_cvv = WebDriverWait(driver, 10).until(
-    #     EC.presence_of_element_located(
-    #         (By.XPATH,
-    #          '//*[@id="cvc"]'))
-    # )
-    # send_cvv.send_keys(config.CARD_CVV)
+    send_cvv = WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located(
+            (By.XPATH,
+             '//*[@id="cvc"]'))
+    )
+    send_cvv.send_keys(config.CARD_CVV)
 
     # click on pay button to place order
     clickon_pay = WebDriverWait(driver, 10).until(
@@ -403,7 +403,6 @@ try:
     clickon_pay.click()
 
     time.sleep(50)
-
 
 finally:
     driver.quit()
